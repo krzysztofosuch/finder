@@ -11,7 +11,10 @@ simple grep wrapper
       set +f 
     }
  to .bashrc
+ 
 2. "finder.py" to "~/bin"
+
+
 3. usage: 
   `finder -igrep "doctype" -name "*.html"` - looks for "doctype" phrase (case-insensitive) in .html files in current directory 
   `finder ~/ -iname "*.rb" -grep " < ApplicationRecord"` - looks for " < ApplicationRecord" phrase in all Ruby files (.rb, case insensitive) in home directory 
