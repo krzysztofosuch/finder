@@ -6,7 +6,7 @@ args.pop(0)
 parsed = {
     "dir": [],
     "not": [
-        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*"  
+        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*"  
     ],
     "name": [],
     "iname": [],
@@ -40,16 +40,23 @@ for d in parsed["dir"]:
 
 cmd.append("-type f")
 for n in parsed["not"]: 
-    cmd.append("-not -wholename '%s'"%(n))
+    cmd.append("-and -not -wholename '%s'"%(n))
+cmd.append("-and")
 
+iname = []
 for n in parsed["iname"]: 
-    cmd.append("-iname '%s'"%(n))
+    iname.append("-iname '%s'"%(n))
+if iname: 
+    cmd.append("\( " +  (" -or ".join(iname)) + ' \)') 
 
+name = []
 for n in parsed["name"]: 
-    cmd.append("-name '%s'"%(n))
+    name.append("-name '%s'"%(n))
+if name: 
+    cmd.append("\( " +  (" -or ".join(name)) + " \)") 
 
 if parsed["igrep"]:
-    cmd.append('-exec grep -ni "%s" {} /dev/null \;'%(" ".join(parsed["grep"])))
+    cmd.append('-exec grep -ni "%s" {} /dev/null \;'%(" ".join(parsed["igrep"])))
 else: 
     if parsed["grep"]:
         cmd.append('-exec grep -n "%s" {} /dev/null \;'%(" ".join(parsed["grep"])))
