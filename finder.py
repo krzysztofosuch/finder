@@ -6,7 +6,7 @@ args.pop(0)
 parsed = {
     "dir": [],
     "not": [
-        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*"  
+        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*", "*venv*", "*.swp"
     ],
     "name": [],
     "iname": [],
