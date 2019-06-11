@@ -13,7 +13,7 @@ parsed = {
     "grep": [],
     "igrep": []
 }
-mode = "dir" 
+mode = "iname" 
 specials = {
     "fgrep" : False
 }
@@ -56,9 +56,9 @@ if name:
     cmd.append("\( " +  (" -or ".join(name)) + " \)") 
 
 if parsed["igrep"]:
-    cmd.append('-exec grep -ni "%s" {} /dev/null \;'%(" ".join(parsed["igrep"])))
+    cmd.append('-exec grep --color -ni "%s" {} /dev/null \;'%(" ".join(parsed["igrep"])))
 else: 
     if parsed["grep"]:
-        cmd.append('-exec grep -n "%s" {} /dev/null \;'%(" ".join(parsed["grep"])))
+        cmd.append('-exec grep --color -n "%s" {} /dev/null \;'%(" ".join(parsed["grep"])))
 
 print(" ".join(cmd))
