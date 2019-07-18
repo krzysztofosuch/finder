@@ -6,7 +6,7 @@ args.pop(0)
 parsed = {
     "dir": [],
     "not": [
-        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*", "*venv*", "*.swp"
+        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*", "*venv*", "*.swp", "*.pyc", "*.git*" 
     ],
     "name": [],
     "iname": [],
@@ -17,6 +17,9 @@ mode = "iname"
 specials = {
     "fgrep" : False
 }
+if '--all' in args:
+    parsed['not'] = []
+    args.remove('--all')
 while args:
     arg = args.pop(0)
     if arg.startswith('-'):
