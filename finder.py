@@ -2,11 +2,11 @@ import sys
 
 args = sys.argv
 args.pop(0)
-
+verbose = False
 parsed = {
     "dir": [],
     "not": [
-        "*node_modules*", "*vendor*", "*lib*", "*bower_components*", "*site-packages*" , "*build*", "*venv*", "*.swp", "*.pyc", "*.git*" 
+        "*node_modules/*", "*vendor/*", "*lib*", "*bower_components/*", "*site-packages/*" , "*build/*", "*venv/*", "*.swp", "*.pyc", "*.git*", "*dist/*", "*.cache/*", "*.log", "*/tmp/*", "*frontend/de*"
     ],
     "name": [],
     "iname": [],
@@ -20,6 +20,9 @@ specials = {
 if '--all' in args:
     parsed['not'] = []
     args.remove('--all')
+if '--v' in args:
+    verbose = True
+    args.remove('--v')
 while args:
     arg = args.pop(0)
     if arg.startswith('-'):
