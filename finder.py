@@ -11,7 +11,9 @@ parsed = {
     "name": [],
     "iname": [],
     "grep": [],
-    "igrep": []
+    "igrep": [],
+    "A": None, 
+    "B": None
 }
 mode = "iname" 
 specials = {
@@ -33,7 +35,10 @@ while args:
             specials[arg] = True
     else:
         if mode in parsed:
-            parsed[mode].append(arg)
+            if isinstance(parsed[mode],list):
+                parsed[mode].append(arg)
+            else:
+                parsed[mode] = arg
 
 cmd = [
     "find -L "        
@@ -61,10 +66,18 @@ for n in parsed["name"]:
 if name: 
     cmd.append("\( " +  (" -or ".join(name)) + " \)") 
 
+grep_params = []
+if parsed['A']:
+    grep_params.append('-A%s'%(parsed['A']))
+if parsed['B']:
+    grep_params.append('-B%s'%(parsed['B']))
+
 if parsed["igrep"]:
-    cmd.append('-exec grep --color -ni "%s" {} /dev/null \;'%(" ".join(parsed["igrep"])))
-else: 
-    if parsed["grep"]:
-        cmd.append('-exec grep --color -n "%s" {} /dev/null \;'%(" ".join(parsed["grep"])))
+    grep_params.append('-i')
+    parsed['grep'] = parsed['igrep']
+    del parsed['igrep']
+
+if parsed["grep"]:
+    cmd.append('-exec grep --color %s -n "%s" {} /dev/null \;'%(" ".join(grep_params), " ".join(parsed["grep"])))
 
 print(" ".join(cmd))
