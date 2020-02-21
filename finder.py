@@ -78,6 +78,6 @@ if parsed["igrep"]:
     del parsed['igrep']
 
 if parsed["grep"]:
-    cmd.append('-exec grep --color %s -n "%s" {} /dev/null \;'%(" ".join(grep_params), " ".join(parsed["grep"])))
+    cmd.append('-exec grep --color=always %s -n "%s" {} /dev/null \;'%(" ".join(grep_params), " ".join(parsed["grep"])))
 
 print(" ".join(cmd))
