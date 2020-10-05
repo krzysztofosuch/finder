@@ -5,7 +5,7 @@ simple grep wrapper
 
     finder() {
       set -f 
-      command=\`python ~/bin/finder.py $*\`
+      command=`python ~/bin/finder.py $*`
       echo $command
       eval $command
       set +f 
